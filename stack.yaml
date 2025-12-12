@@ -1,9 +1,20 @@
 flags: {}
 extra-package-dbs: []
+ghc-version: 8.10.7
 packages:
 - '.'
+
 extra-deps:
-- wl-pprint-1.2.1
-- Unique-0.4.5
-- indentation-trifecta-0.1.0
-resolver: lts-13.8
+- github: adamsmd/indentation
+  commit: 30b6a5cb0d29f20ccd970f3aefb61ba922c612fc
+  subdirs:
+  - indentation-core
+  - indentation-trifecta
+- Unique-0.4.7.9@sha256:7c37e22b7bb9df935c22112e67043177461aedcebe3a958854f6c0e9ecb54083,2155
+- wl-pprint-1.2.1@sha256:aea676cff4a062d7d912149d270e33f5bb0c01b68a9db46ff13b438141ff4b7c,734
+# - wl-pprint-1.2.1
+# - Unique-0.4.5
+# - indentation-trifecta-0.1.0
+resolver: lts-18.28
+-- resolver: lts-20.11 -- 9.2
+-- resolver: lts-17.2

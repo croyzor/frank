@@ -22,15 +22,15 @@ newtype FrankParser t m a =
   deriving (Functor, Alternative, Applicative, Monad, Parsing
            , IndentationParsing, MonadPlus)
 
-deriving instance (DeltaParsing m) => (DeltaParsing (FrankParser Token m))
-deriving instance (DeltaParsing m) => (CharParsing (FrankParser Char m))
-deriving instance (DeltaParsing m) => (CharParsing (FrankParser Token m))
-deriving instance (DeltaParsing m) => (TokenParsing (FrankParser Char m))
+deriving instance (MonadFail m, DeltaParsing m) => (DeltaParsing (FrankParser Token m))
+deriving instance (MonadFail m, DeltaParsing m) => (CharParsing (FrankParser Char m))
+deriving instance (MonadFail m, DeltaParsing m) => (CharParsing (FrankParser Token m))
+deriving instance (MonadFail m, DeltaParsing m) => (TokenParsing (FrankParser Char m))
 
 frankCommentStyle :: CommentStyle
 frankCommentStyle = CommentStyle "{--" "--}" "--" True
 
-instance DeltaParsing m => TokenParsing (FrankParser Token m) where
+instance (MonadFail m, DeltaParsing m) => TokenParsing (FrankParser Token m) where
   someSpace = FrankParser $ buildSomeSpaceParser someSpace frankCommentStyle
   nesting = FrankParser . nesting . runFrankParser
   semi = FrankParser $ runFrankParser semi
